@@ -8,7 +8,7 @@ load_dotenv()
 
 # Estructura: postgresql://usuario:password@localhost:5432/nombre_db
 # Para Supabase usarás la URL que te dan en su panel de Settings -> Database
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://productos_db_afso_user:yfCUdhuhG4lN2h8MRIeLOwbJGMlvfXSD@dpg-d6ni9uhaae7s73c0n8q0-a/productos_db_afso")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg://productos_db_afso_user:yfCUdhuhG4IN2h8MRleL0wbJGMlvfxSD@dpg-d6ni9uhaae7s73c0n8q0-a/productos_db_afso")
 
 # El motor de conexión (Engine)
 # Usamos el driver 'psycopg' (el 3) que es el que definiste en tu stack
