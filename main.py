@@ -101,9 +101,35 @@ async def upload_product(product_data:schemas.ProductCreate,db:Session = Depends
     return new_product
 
 @app.put("/products/{product_id}")
-async def update_product():
-    return
+async def update_product(product_id:int,product:str = Body(...,embed=True), stock:int = Body(...,embed=True), price: float = Body(...,embed=True), description: str = Body(embed=True), id_category: int = Body(...,embed=True), date_exp: date = Body(...,embed=True), db:Session = Depends(get_db)):
+
+    db_product = db.query(models.Products).filter(models.Products.id_product == product_id).first()
+
+    if not (db_product):
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404,detail="El producto no existe")
+    
+    db_product.product = product
+    db_product.stock = stock
+    db_product.price = price
+    db_product.description = description
+    db_product.id_category = id_category
+    db_product.date_exp = date_exp
+
+    db.commit()
+    db.refresh(db_product)
+    
+    return db_product
 
 @app.delete("/products/{product_id}")
-async def delete_product():
-    return
+async def delete_product(product_id:int,db:Session = Depends(get_db)):
+    db_product = db.query(models.Products).filter(models.Products.id_product == product_id).first()
+
+    if not (db_product):
+
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404,detail="El producto no existe")
+    
+    db.delete(db_product)
+    db.commit()
+    return {"mensaje":"Producto eliminado con exito"}
