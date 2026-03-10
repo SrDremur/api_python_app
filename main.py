@@ -2,10 +2,12 @@ from typing import Annotated
 from fastapi import FastAPI, Form, UploadFile, Depends, Body
 from datetime import date
 from sqlalchemy.orm import Session
-from database import get_db, engine
+from database import Base, get_db, engine
 import category_validate
 import models, schemas
 from database import get_db
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
