@@ -12,7 +12,7 @@ load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if platform.system() == "Windows" or not DATABASE_URL:
-    DATABASE_URL = "postgresql+psycopg://productos_db_afso_user:yfCUdhuhG4lN2h8MRIeLOwbJGMlvfXSD@dpg-d6ni9uhaae7s73c0n8q0-a.oregon-postgres.render.com/productos_db_afso"
+    DATABASE_URL = "postgresql://productos_render_user:29aGdrKlZTTTkLaR85OEhHXB59ewUwg5@dpg-d7d6qjpf9bms7380fvt0-a/productos_render"
 
 # 3. Corrección para Render (por si acaso envían postgres://)
 if DATABASE_URL.startswith("postgres://"):
