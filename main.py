@@ -103,7 +103,7 @@ async def upload_product(product_data:schemas.ProductCreate,db:Session = Depends
     return new_product
 
 @app.put("/products/{product_id}")
-async def update_product(product_id:int,product:str = Body(...,embed=True), stock:int = Body(...,embed=True), price: float = Body(...,embed=True), description: str = Body(embed=True), id_category: int = Body(...,embed=True), date_exp: date = Body(...,embed=True), db:Session = Depends(get_db)):
+async def update_product(product_id:int,product:str = Body(...,embed=True), stock:int = Body(...,embed=True), price: float = Body(...,embed=True), description: str = Body(embed=True), id_category: int = Body(...,embed=True), date_exp: date = Body(None,embed=True), db:Session = Depends(get_db)):
 
     db_product = db.query(models.Products).filter(models.Products.id_product == product_id).first()
 
