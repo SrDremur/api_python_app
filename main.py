@@ -1,5 +1,6 @@
 from typing import Annotated
 from fastapi import FastAPI, Form, UploadFile, Depends, Body
+from fastapi.middleware.cors import CORSMiddleware
 from datetime import date
 from sqlalchemy.orm import Session
 from database import Base, get_db, engine
@@ -10,6 +11,14 @@ from database import get_db
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Esto permite que cualquier origen (incluyendo tu web de Firebase) acceda
+    allow_credentials=True,
+    allow_methods=["*"], # Permite GET, POST, PUT, DELETE, etc.
+    allow_headers=["*"], # Permite todos los encabezados
+)
 
 @app.get("/categories/{id_cat}")
 async def read_category (id_cat:int,db:Session = Depends(get_db)):
